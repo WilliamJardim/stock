@@ -1,0 +1,116 @@
+// Variáveis para cores
+$cor-primaria: #28a745;
+$cor-secundaria: #dc3545;
+$cor-borda: #ccc;
+$cor-fundo: #f9f9f9;
+$cor-fundo-container: #f0f0f0;
+$cor-texto: #333;
+
+$form-padding: 20px;
+$input-padding: 10px;
+$input-font-size: 24px;
+$input-label-font-size: 34px;
+$button-font-size: 16px;
+$button-padding: 10px 20px;
+$button-radius: 4px;
+$border-radius: 8px;
+$campo-margin-bottom: 10px; // Reduzir o espaço entre os campos
+
+.formulario-novo-produto{
+  
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 10vh;
+    background-color: $cor-fundo-container;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: $form-padding;
+    border: 1px solid $cor-borda;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: $cor-fundo;
+
+    div{
+      display: flex;
+      flex-direction: column;
+    }
+
+    // Estilo dos campos de entrada
+    input {
+      margin-bottom: $campo-margin-bottom;
+      padding: $input-padding;
+      font-size: $input-font-size;
+      border: 1px solid $cor-borda;
+      border-radius: $button-radius;
+      width: 100%;
+      box-sizing: border-box;
+      height: 80px;
+    }
+
+    // Estilo das labels
+    label {
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: $cor-texto;
+      font-size: $input-label-font-size;
+    }
+
+    .botoes{
+      display: flex;
+      flex-direction: row;
+
+      // Estilo dos botões
+      button {
+        padding: $button-padding;
+        font-size: $button-font-size;
+        margin-right: 10px;
+        cursor: pointer;
+        border-radius: $button-radius;
+        border: none;
+        transition: background-color 0.3s;
+        width: 200px;
+        height: 80px;
+        font-weight: bold;
+        text-transform: uppercase;
+    
+        &:hover {
+          background-color: darken($cor-primaria, 10%);
+        }
+      }
+
+      // Botão Cadastrar
+      button[type="submit"] {
+        background-color: $cor-primaria;
+        color: white;
+
+        &:hover {
+          background-color: darken($cor-primaria, 10%);
+        }
+      }
+
+      // Botão Cancelar
+      button[type="button"] {
+        background-color: $cor-secundaria;
+        color: white;
+
+        &:hover {
+          background-color: darken($cor-secundaria, 10%);
+        }
+      }
+    }
+
+    // Estilo do container dos botões para alinhamento
+    div.buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px; // Garantir espaçamento adequado entre os botões
+    }
+  }
+}

@@ -5,12 +5,14 @@ import './App.css'
 // Importando os componentes de página
 import ListaProdutos from './pages/ListaProdutos';
 import NaoEncontrado from './pages/NaoEncontrado';
+import CadastrarProduto from './pages/CadastrarProduto';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<ListaProdutos />} />
+        <Route path="/novo" element={<CadastrarProduto />} />
         <Route path="*" element={<NaoEncontrado />} />  {/* Página de erro para rotas não definidas */}
       </Routes>
     </Router>

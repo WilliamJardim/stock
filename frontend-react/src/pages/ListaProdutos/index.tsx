@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './style.scss';
 
 const ListaProdutos: React.FC = () => {
 
   const [produtos, setProdutos] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(function(){
 
@@ -29,9 +31,18 @@ const ListaProdutos: React.FC = () => {
 
   }, []);
 
+  function criarNovoProduto(){
+    navigate('/novo');
+  }
+
   return (
     <Fragment>
       <h1> Lista de Produtos </h1>
+
+      <div className='barra-botoes'>
+        <button onClick={criarNovoProduto}> Novo Produto </button>
+      </div>
+
       <div className='grid-produtos'>
         
         {
