@@ -7,7 +7,7 @@ class ProdutosCRUD {
         app.post('/produtos', (req, res) => {
             const { nome, preco, quantidade } = req.body;
             try {
-                this.dbInstance.rodar(`INSERT INTO produtos (nome, preco, quantidade) VALUES (?, ?, ?)`, [nome, preco, quantidade]);
+                this.dbInstance.inserir('produtos', [nome, preco, quantidade]);
                 res.status(201).json({ message: 'Produto criado com sucesso.' });
             }
             catch (error) {
@@ -43,9 +43,13 @@ class ProdutosCRUD {
         // Rota para atualizar um Produto pelo ID
         app.put('/produtos/:id', (req, res) => {
             const { id } = req.params;
-            const { name, email } = req.body;
+            const { nome, preco, quantidade } = req.body;
             try {
-                const changes = this.dbInstance.updateById('produtos', Number(id), [name, email]);
+                const changes = this.dbInstance.updateById('produtos', Number(id), {
+                    nome: nome,
+                    preco: preco,
+                    quantidade: quantidade
+                });
                 if (changes) {
                     res.status(200).json({ message: 'Produto atualizado com sucesso.' });
                 }
