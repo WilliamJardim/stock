@@ -79,6 +79,8 @@ $campo-margin-bottom: 10px; // Reduzir o espaço entre os campos
         height: 80px;
         font-weight: bold;
         text-transform: uppercase;
+        border: solid 1px black;
+        border-radius: 16px;
     
         &:hover {
           background-color: darken($cor-primaria, 10%);
