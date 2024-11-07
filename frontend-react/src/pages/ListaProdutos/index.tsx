@@ -10,15 +10,41 @@ const ListaProdutos: React.FC = () => {
         <div className='produto'>
           
           <div className="foto">
-            <h2> Imagem </h2>
+            <img src="produtos/caixacarga.webp" alt="" className="src" />
           </div>
 
           <div className="dados">
-            <h2 className='titulo'> Tabelinha </h2>
+            <h2 className='titulo'> Caixa de carga </h2>
             <table className='tabela-dados'>
               <tr> 
                 <td> NOME </td>
-                <td> Garfo </td>
+                <td> Caixa de carga </td>
+              </tr>
+              <tr> 
+                <td> PREÇO </td>
+                <td> R$: 12,00 </td>
+              </tr>
+              <tr> 
+                <td> ESTOQUE </td>
+                <td> 25 unidades </td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+
+        <div className='produto'>
+          
+          <div className="foto">
+            <img src="produtos/lamparina.webp" alt="" className="src" />
+          </div>
+
+          <div className="dados">
+            <h2 className='titulo'> Lamparina </h2>
+            <table className='tabela-dados'>
+              <tr> 
+                <td> NOME </td>
+                <td> Lamparina </td>
               </tr>
               <tr> 
                 <td> PREÇO </td>
