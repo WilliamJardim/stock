@@ -24,6 +24,22 @@ class DatabaseManager {
         const resposta = editor.all(...parametros); // Usa `all` para obter os dados
         return resposta; // O resultado é um array de objetos JSON
     }
+    tabelaExiste(nomeTabela) {
+        const dadosUltimoRegistro = this.consultar(`
+        SELECT name FROM sqlite_master 
+        WHERE type='table' AND 
+              name='${nomeTabela}';
+     `);
+        return dadosUltimoRegistro.length > 0 ? true : false;
+    }
+    criarTabela(nomeTabela, campos) {
+        this.db.exec(`
+      CREATE TABLE ${String(nomeTabela)} (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${String(campos)}
+      );
+    `);
+    }
     rodar(code, parametros = []) {
         const editor = this.db.prepare(code);
         const resposta = editor.run(...parametros);

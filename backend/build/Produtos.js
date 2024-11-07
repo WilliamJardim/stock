@@ -3,6 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class ProdutosCRUD {
     constructor(app, dbInstance) {
         this.dbInstance = dbInstance;
+        //Verifica se a tabela produtos existe
+        if (!this.dbInstance.tabelaExiste('produtos')) {
+            this.dbInstance.criarTabela('produtos', [
+                'nome TEXT NOT NULL',
+                'preco DECIMAL NOT NULL',
+                'quantidade INT NOT NULL'
+            ]);
+        }
         // Rota para criar um novo Produto
         app.post('/produtos', (req, res) => {
             const { nome, preco, quantidade } = req.body;

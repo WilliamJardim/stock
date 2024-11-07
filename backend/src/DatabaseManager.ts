@@ -32,6 +32,25 @@ class DatabaseManager {
     return resposta; // O resultado é um array de objetos JSON
   }
 
+  tabelaExiste(nomeTabela:string){
+     const dadosUltimoRegistro = this.consultar(`
+        SELECT name FROM sqlite_master 
+        WHERE type='table' AND 
+              name='${nomeTabela}';
+     `);
+
+     return dadosUltimoRegistro.length > 0 ? true : false;
+  }
+
+  criarTabela(nomeTabela:string, campos:string[]){
+    this.db.exec(`
+      CREATE TABLE ${ String(nomeTabela) } (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${ String(campos) }
+      );
+    `);
+  }
+
   rodar( code:string, parametros:any[] = [] ){
     const editor = this.db.prepare(code);
     const resposta = editor.run(...parametros); 
