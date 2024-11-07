@@ -25,6 +25,10 @@
         display: flex;
         flex-direction: column;
         gap: 45px;
+        background-color: rgba(0, 0, 0, 0.521);
+        border: solid 2px white;
+        border-radius: 18px;
+        padding: 20px;
 
         .parte-dados{
             display: flex;
@@ -51,7 +55,8 @@
                 }
     
                 .tabela-dados{
-                    margin-top: -15px;
+                    margin-top: 5px;
+                    margin-bottom: 5px;
     
                     td{
                         width: 190px;
@@ -95,7 +100,7 @@
                 background-color: darkred;
             }
 
-            .botao-editar{
+            .botao-baixa{
                 background-color: rgb(9, 9, 66);
                 margin-left: 28px;
             }

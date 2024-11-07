@@ -97,7 +97,6 @@ const ListaProdutos: React.FC = () => {
                   </div>
         
                   <div className="dados">
-                    <h2 className='titulo'> Caixa de carga </h2>
                     <table className='tabela-dados'>
                       <tr> 
                         <td> NOME </td>
@@ -119,6 +118,10 @@ const ListaProdutos: React.FC = () => {
                     <button className='botao-deletar' onClick={()=>{
                       apagarProduto(id);
                     }}> Apagar </button>
+
+                    <button className='botao-baixa' onClick={()=>{
+                      baixaProduto(id);
+                    }}> Baixa </button>
                 </div>
 
               </div>
