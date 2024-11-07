@@ -54,7 +54,7 @@ class ProdutosCRUD {
       const { id } = req.params;
 
       try {
-        const Produto = this.dbInstance.getById('produtos', Number(id));
+        const Produto = this.dbInstance.lerID('produtos', Number(id));
 
         if (Produto) {
           res.status(200).json(Produto);
@@ -73,7 +73,7 @@ class ProdutosCRUD {
       const { nome, preco, quantidade } = req.body;
 
       try {
-        const changes = this.dbInstance.updateById('produtos', Number(id), {
+        const changes = this.dbInstance.atualizarID('produtos', Number(id), {
           nome: nome,
           preco: preco,
           quantidade: quantidade  
@@ -94,7 +94,8 @@ class ProdutosCRUD {
       const { id } = req.params;
 
       try {
-        const changes = this.dbInstance.deleteById('produtos', Number(id));
+        const changes = this.dbInstance.deletarID('produtos', Number(id));
+
         if (changes) {
           res.status(200).json({ message: 'Produto deletado com sucesso.' });
         } else {

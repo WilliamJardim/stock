@@ -23,39 +23,61 @@
 
     .produto{
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         gap: 45px;
 
-        .foto{
-            justify-content: center;
-            align-self: center;
-            width: 200px;
-            height: 200px;
-            border: solid 1px black;
-            background-color: rgba(131, 131, 131, 0.5);
-            text-align: center;
-
-            img{
+        .parte-dados{
+            display: flex;
+            flex-direction: row;
+            gap: 45px;
+            .foto{
+                justify-content: center;
+                align-self: center;
                 width: 200px;
                 height: 200px;
+                border: solid 1px black;
+                background-color: rgba(131, 131, 131, 0.5);
+                text-align: center;
+    
+                img{
+                    width: 200px;
+                    height: 200px;
+                }
+            }
+    
+            .dados{
+                .titulo{
+                    background-color: black;
+                }
+    
+                .tabela-dados{
+                    margin-top: -15px;
+    
+                    td{
+                        width: 190px;
+                        font-size: 26px;
+                        font-weight: bold;
+                        text-align: center;
+                        background-color: black;
+                    }
+                }
             }
         }
 
-        .dados{
-            .titulo{
-                background-color: black;
+        .botoes-produto{
+            button{
+                border: none;
+                transition: background-color 0.3s;
+                width: 200px;
+                height: 80px;
+                font-weight: bold;
+                text-transform: uppercase;
+                border: solid 1px black;
+                border-radius: 16px;
             }
 
-            .tabela-dados{
-                margin-top: -15px;
-
-                td{
-                    width: 190px;
-                    font-size: 26px;
-                    font-weight: bold;
-                    text-align: center;
-                    background-color: black;
-                }
+            .botao-deletar{
+                background-color: darkred;
             }
         }
     }
