@@ -12,8 +12,36 @@ const CadastrarProduto: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
     // Lógica para envio do formulário, por exemplo, enviar para uma API
     console.log('Formulário enviado:', { nome, preco, quantidade });
+
+    const url = 'http://localhost:3000/produtos'; // substitua pelo endpoint desejado
+
+    const dados = {
+      nome: nome,
+      preco: preco,
+      quantidade: quantidade
+    };
+
+    fetch(url, {
+      method: 'POST', // Define o método como POST
+      headers: {
+        'Content-Type': 'application/json' // Define o tipo de conteúdo como JSON
+      },
+      body: JSON.stringify(dados) // Converte os dados para JSON
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição'); // Lança um erro se a resposta não for ok
+      }
+      return response.json(); // Converte a resposta para JSON
+    })
+    .then(data => {
+       console.log('Resposta do servidor:', data) 
+       navigate('/');
+    }) // Manipula a resposta do servidor
+    .catch(error => console.error('Erro:', error)); // Captura e exibe erros
   };
 
   const handleCancel = () => {
