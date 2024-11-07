@@ -1,0 +1,41 @@
+.grid-produtos{
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    column-gap: 150px;
+    row-gap: 150px;
+    margin-left: -490px;
+
+    .produto{
+        display: flex;
+        flex-direction: row;
+        gap: 45px;
+
+        .foto{
+            justify-content: center;
+            align-self: center;
+            width: 200px;
+            height: 200px;
+            border: solid 1px black;
+            background-color: rgba(131, 131, 131, 0.5);
+            text-align: center;
+        }
+
+        .dados{
+            .titulo{
+                background-color: black;
+            }
+
+            .tabela-dados{
+                margin-top: -15px;
+
+                td{
+                    width: 190px;
+                    font-size: 26px;
+                    font-weight: bold;
+                    text-align: center;
+                    background-color: black;
+                }
+            }
+        }
+    }
+}
