@@ -70,6 +70,10 @@ const ListaProdutos: React.FC = () => {
       });
   }
 
+  function editarProduto(idEditar:number){
+    
+  }
+
   return (
     <Fragment>
       <h1> Lista de Produtos </h1>
