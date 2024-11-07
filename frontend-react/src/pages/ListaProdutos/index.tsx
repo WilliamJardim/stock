@@ -101,15 +101,15 @@ const ListaProdutos: React.FC = () => {
                     <table className='tabela-dados'>
                       <tr> 
                         <td> NOME </td>
-                        <td> { objProduto.nome } </td>
+                        <td className='td-input'> <input type='text' value={ objProduto.nome }/> </td>
                       </tr>
                       <tr> 
                         <td> PREÇO </td>
-                        <td> R$: { objProduto.preco } </td>
+                        <td className='td-input'> <input type='number' value={ objProduto.preco }/> </td>
                       </tr>
                       <tr> 
                         <td> ESTOQUE </td>
-                        <td> {objProduto.quantidade} unidades </td>
+                        <td className='td-input'> <input type='number' value={objProduto.quantidade}/> </td>
                       </tr>
                     </table>
                   </div>
