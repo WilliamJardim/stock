@@ -5,12 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Produtos_1 = __importDefault(require("./Produtos"));
 const express = require('express');
+const cors = require('cors'); // Importa o middleware cors
 const DBManager = require('./DatabaseManager');
 const appDB = new DBManager('../data/app.db');
 const app = express();
 const PORT = 3000;
 // Configurações do Express para permitir JSON no corpo das requisições
 app.use(express.json());
+// Habilita o CORS para todas as origens
+app.use(cors());
 //Carrega o CRUD de produtos
 const produtosCrud = new Produtos_1.default(app, appDB);
 // Inicia o servidor
