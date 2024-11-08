@@ -74,8 +74,8 @@ const ListaProdutos: React.FC = () => {
     navigate(`/novo/N/${idEditar}/${objeto.nome}/${objeto.preco}/${objeto.quantidade}`);
   }
 
-  function baixaProduto( idBaixa:number ){
-
+  function baixaProduto( idBaixa:number, objeto:any ){
+    navigate(`/baixa/${idBaixa}`);
   }
 
   return (
@@ -126,6 +126,10 @@ const ListaProdutos: React.FC = () => {
                     <button className='botao-editar' onClick={()=>{
                       editarProduto(id, objProduto);
                     }}> Editar </button>
+
+                    <button className='botao-baixa' onClick={()=>{
+                      baixaProduto(id, objProduto);
+                    }}> Baixa </button>
                 </div>
 
               </div>

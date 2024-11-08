@@ -85,6 +85,11 @@
         }
 
         .botoes-produto{
+            display: flex;
+            flex-direction: row;
+            gap: 25px;
+            justify-content: center;
+
             button{
                 border: none;
                 transition: background-color 0.3s;
@@ -102,12 +107,10 @@
 
             .botao-baixa{
                 background-color: rgb(9, 9, 66);
-                margin-left: 28px;
             }
 
             .botao-editar{
                 background-color: rgb(9, 9, 66);
-                margin-left: 28px;
             }
         }
     }

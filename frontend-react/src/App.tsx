@@ -6,6 +6,7 @@ import './App.css'
 import ListaProdutos from './pages/ListaProdutos';
 import NaoEncontrado from './pages/NaoEncontrado';
 import CadastrarProduto from './pages/CadastrarProduto';
+import BaixaProduto from './pages/BaixaProduto';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<ListaProdutos />} />
         <Route path="/novo/:isCadastrando/:idProduto/:nome/:preco/:quantidade" element={<CadastrarProduto />} />
+        <Route path="/baixa/:idProduto" element={<BaixaProduto />} />
         <Route path="*" element={<NaoEncontrado />} />  {/* Página de erro para rotas não definidas */}
       </Routes>
     </Router>

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import './style.scss';
-import IProduto from './interfaces/IProduto';
+import IProduto from '../../interfaces/IProduto';
 
 const CadastrarProduto: React.FC = (props:any) => {
 
