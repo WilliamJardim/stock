@@ -32,7 +32,7 @@ const ListaProdutos: React.FC = () => {
   }, []);
 
   function criarNovoProduto(){
-    navigate('/novo');
+    navigate('/novo/S/0/Produto/0/0');
   }
 
   function apagarProduto(idApagar:number){
@@ -70,8 +70,12 @@ const ListaProdutos: React.FC = () => {
       });
   }
 
-  function editarProduto(idEditar:number){
-    
+  function editarProduto(idEditar:number, objeto:any){
+    navigate(`/novo/N/${idEditar}/${objeto.nome}/${objeto.preco}/${objeto.quantidade}`);
+  }
+
+  function baixaProduto( idBaixa:number ){
+
   }
 
   return (
@@ -119,9 +123,9 @@ const ListaProdutos: React.FC = () => {
                       apagarProduto(id);
                     }}> Apagar </button>
 
-                    <button className='botao-baixa' onClick={()=>{
-                      baixaProduto(id);
-                    }}> Baixa </button>
+                    <button className='botao-editar' onClick={()=>{
+                      editarProduto(id, objProduto);
+                    }}> Editar </button>
                 </div>
 
               </div>

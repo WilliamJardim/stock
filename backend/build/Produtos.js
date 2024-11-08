@@ -51,13 +51,9 @@ class ProdutosCRUD {
         // Rota para atualizar um Produto pelo ID
         app.put('/produtos/:id', (req, res) => {
             const { id } = req.params;
-            const { nome, preco, quantidade } = req.body;
+            const parametros = req.body;
             try {
-                const changes = this.dbInstance.atualizarID('produtos', Number(id), {
-                    nome: nome,
-                    preco: preco,
-                    quantidade: quantidade
-                });
+                const changes = this.dbInstance.atualizarID('produtos', Number(id), parametros);
                 if (changes) {
                     res.status(200).json({ message: 'Produto atualizado com sucesso.' });
                 }

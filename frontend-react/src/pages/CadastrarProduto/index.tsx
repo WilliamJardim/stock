@@ -1,21 +1,23 @@
 import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './style.scss';
+import IProduto from './interfaces/IProduto';
 
-const CadastrarProduto: React.FC = () => {
+const CadastrarProduto: React.FC = (props:any) => {
 
-  const [nome, setNome] = useState('');
-  const [preco, setPreco] = useState('');
-  const [quantidade, setQuantidade] = useState('');
+  const parametrosURL = useParams<{isCadastrando:string, idProduto:string, nome: string; preco: string; quantidade: string }>();
+
+  const isCadastrando:string        = parametrosURL.isCadastrando        || 'N'; 
+  const idProdutoEditando:string    = parametrosURL.idProduto            || '';
+  const [nome, setNome]             = useState( parametrosURL.nome       || '' );
+  const [preco, setPreco]           = useState( parametrosURL.preco      || '' );
+  const [quantidade, setQuantidade] = useState( parametrosURL.quantidade || '' );
+
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Lógica para envio do formulário, por exemplo, enviar para uma API
-    console.log('Formulário enviado:', { nome, preco, quantidade });
-
+  const cadastrar = function(){
     const url = 'http://localhost:3000/produtos'; // substitua pelo endpoint desejado
 
     const dados = {
@@ -42,6 +44,51 @@ const CadastrarProduto: React.FC = () => {
        navigate('/');
     }) // Manipula a resposta do servidor
     .catch(error => console.error('Erro:', error)); // Captura e exibe erros
+  }
+
+  const editar = function(){
+    const url = `http://localhost:3000/produtos/${idProdutoEditando}`; // substitua pelo endpoint desejado
+
+    const dados = {
+      nome: nome,
+      preco: preco,
+      quantidade: quantidade
+    };
+
+    fetch(url, {
+      method: 'PUT', // Define o método como POST
+      headers: {
+        'Content-Type': 'application/json' // Define o tipo de conteúdo como JSON
+      },
+      body: JSON.stringify(dados) // Converte os dados para JSON
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição'); // Lança um erro se a resposta não for ok
+      }
+      debugger
+      return response.json(); // Converte a resposta para JSON
+    })
+    .then(data => {
+       console.log('Resposta do servidor:', data) 
+       navigate('/');
+    }) // Manipula a resposta do servidor
+    .catch(error => console.error('Erro:', error)); // Captura e exibe erros
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Lógica para envio do formulário, por exemplo, enviar para uma API
+    console.log('Formulário enviado:', { nome, preco, quantidade });
+
+    if( isCadastrando == 'S' ){
+        cadastrar();
+
+    }else if(isCadastrando == 'N'){
+        editar();
+    }
+    
   };
 
   const handleCancel = () => {
@@ -94,7 +141,7 @@ const CadastrarProduto: React.FC = () => {
         </div>
 
         <div className='botoes'>
-          <button type="submit">Cadastrar</button>
+          <button type="submit"> { isCadastrando == 'S' ? 'Cadastrar' : 'Alterar' } </button>
           <button type="button" onClick={handleCancel}>Cancelar</button>
         </div>
       </form>
