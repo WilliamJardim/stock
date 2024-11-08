@@ -66,7 +66,7 @@ const CadastrarProduto: React.FC = (props:any) => {
       if (!response.ok) {
         throw new Error('Erro na requisição'); // Lança um erro se a resposta não for ok
       }
-      debugger
+      
       return response.json(); // Converte a resposta para JSON
     })
     .then(data => {
