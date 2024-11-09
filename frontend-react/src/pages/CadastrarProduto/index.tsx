@@ -13,7 +13,6 @@ const CadastrarProduto: React.FC = (props:any) => {
   const idProdutoEditando:string    = parametrosURL.idProduto            || '';
   const [nome, setNome]             = useState( parametrosURL.nome       || '' );
   const [preco, setPreco]           = useState( parametrosURL.preco      || '' );
-  const [quantidade, setQuantidade] = useState( parametrosURL.quantidade || '' );
   const [estoque, setEstoque]       = useState<{ estoque:number }>({ estoque: 0 });
 
   const navigate = useNavigate();
@@ -23,8 +22,7 @@ const CadastrarProduto: React.FC = (props:any) => {
 
     const dados = {
       nome: nome,
-      preco: preco,
-      quantidade: quantidade
+      preco: preco
     };
 
     fetch(url, {
@@ -52,8 +50,7 @@ const CadastrarProduto: React.FC = (props:any) => {
 
     const dados = {
       nome: nome,
-      preco: preco,
-      quantidade: quantidade
+      preco: preco
     };
 
     fetch(url, {
@@ -81,7 +78,7 @@ const CadastrarProduto: React.FC = (props:any) => {
     e.preventDefault();
     
     // Lógica para envio do formulário, por exemplo, enviar para uma API
-    console.log('Formulário enviado:', { nome, preco, quantidade });
+    console.log('Formulário enviado:', { nome, preco });
 
     if( isCadastrando == 'S' ){
         cadastrar();
@@ -96,7 +93,6 @@ const CadastrarProduto: React.FC = (props:any) => {
     // Limpa os campos do formulário
     setNome('');
     setPreco('');
-    setQuantidade('');
     navigate('/');
   };
 
@@ -153,19 +149,6 @@ const CadastrarProduto: React.FC = (props:any) => {
             onChange={(e) => setPreco(e.target.value)}
             required
             min="0"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="quantidade">Quantidade:</label>
-          <input
-            type="number"
-            id="quantidade"
-            name="quantidade"
-            value={quantidade}
-            onChange={(e) => setQuantidade(e.target.value)}
-            required
-            min="1"
           />
         </div>
 

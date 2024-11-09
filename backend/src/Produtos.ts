@@ -3,7 +3,6 @@ import { Application, Request, Response } from 'express';
 interface Produto {
   nome: string;
   preco: number;
-  quantidade: number;
 }
 
 class ProdutosCRUD {
@@ -17,19 +16,18 @@ class ProdutosCRUD {
     {
       this.dbInstance.criarTabela('produtos', [
         'nome TEXT NOT NULL',
-        'preco DECIMAL NOT NULL',
-        'quantidade INT NOT NULL'
+        'preco DECIMAL NOT NULL'
       ]);
 
     }
 
     // Rota para criar um novo Produto
     app.post('/produtos', (req: Request<{}, {}, Produto>, res: Response) => {
-      const { nome, preco, quantidade } = req.body;
+      const { nome, preco } = req.body;
 
       try {
         
-        this.dbInstance.inserir('produtos', [nome, preco, quantidade]);
+        this.dbInstance.inserir('produtos', [nome, preco]);
 
         res.status(201).json({ message: 'Produto criado com sucesso.' });
       } catch (error) {

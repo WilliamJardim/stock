@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Baixas_1 = __importDefault(require("./Baixas"));
 const Produtos_1 = __importDefault(require("./Produtos"));
-const CalculaEstoque_1 = __importDefault(require("./tools/CalculaEstoque"));
+const CalculaEstoque_1 = __importDefault(require("./math/CalculaEstoque"));
 const express = require('express');
 const cors = require('cors'); // Importa o middleware cors
 const DBManager = require('./DatabaseManager');
