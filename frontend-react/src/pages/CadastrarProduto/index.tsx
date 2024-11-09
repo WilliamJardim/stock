@@ -9,11 +9,12 @@ const CadastrarProduto: React.FC = (props:any) => {
 
   const parametrosURL = useParams<{isCadastrando:string, idProduto:string, nome: string; preco: string; quantidade: string }>();
 
-  const isCadastrando:string        = parametrosURL.isCadastrando        || 'N'; 
-  const idProdutoEditando:string    = parametrosURL.idProduto            || '';
-  const [nome, setNome]             = useState( parametrosURL.nome       || '' );
-  const [preco, setPreco]           = useState( parametrosURL.preco      || '' );
-  const [estoque, setEstoque]       = useState<{ estoque:number }>({ estoque: 0 });
+  const isCadastrando:string                 = parametrosURL.isCadastrando        || 'N'; 
+  const idProdutoEditando:string             = parametrosURL.idProduto            || '';
+  const [nome, setNome]                      = useState( parametrosURL.nome       || '' );
+  const [preco, setPreco]                    = useState( parametrosURL.preco      || '' );
+  const [estoque, setEstoque]                = useState<{ estoque:number }>({ estoque: 0 });
+  const [estoqueInicial, setEstoqueInicial]  = useState('');
 
   const navigate = useNavigate();
 
@@ -82,6 +83,8 @@ const CadastrarProduto: React.FC = (props:any) => {
 
     if( isCadastrando == 'S' ){
         cadastrar();
+
+        //Adiciona o estoque inicial
 
     }else if(isCadastrando == 'N'){
         editar();
@@ -152,16 +155,37 @@ const CadastrarProduto: React.FC = (props:any) => {
           />
         </div>
 
-        <div>
-          <label htmlFor="estoque">Estoque:</label>
-          <input
-            type="text"
-            id="estoque"
-            name="estoque"
-            value={estoque.estoque}
-            min="1"
-          />
-        </div>
+        {
+          //Se estiver cadastrando um novo produto, permite dizer o estoque inicial
+          isCadastrando == 'S' &&
+          <div>
+            <label htmlFor="quantidade">Quantidade:</label>
+            <input
+              type="text"
+              id="quantidade"
+              name="quantidade"
+              value={estoqueInicial}
+              onChange={(e) =>{
+                 setEstoqueInicial(e.target.value);
+              }}
+              min="1"
+            />
+          </div>
+        }
+
+        {
+          isCadastrando == 'N' &&
+          <div>
+            <label htmlFor="estoque">Estoque:</label>
+            <input
+              type="text"
+              id="estoque"
+              name="estoque"
+              value={estoque.estoque}
+              min="1"
+            />
+          </div>
+        }
 
         <div className='botoes'>
           <button type="submit"> { isCadastrando == 'S' ? 'Cadastrar' : 'Alterar' } </button>
