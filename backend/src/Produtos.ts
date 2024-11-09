@@ -2,7 +2,10 @@ import { Application, Request, Response } from 'express';
 
 interface Produto {
   nome: string;
-  preco: number;
+  precoVenda: number;
+  precoCompra: number;
+  descricao: string,
+  tags: string
 }
 
 class ProdutosCRUD {
@@ -16,18 +19,21 @@ class ProdutosCRUD {
     {
       this.dbInstance.criarTabela('produtos', [
         'nome TEXT NOT NULL',
-        'preco DECIMAL NOT NULL'
+        'precoVenda DECIMAL NOT NULL',
+        'precoCompra DECIMAL NOT NULL',
+        'descricao TEXT',
+        'tags TEXT'
       ]);
 
     }
 
     // Rota para criar um novo Produto
     app.post('/produtos', (req: Request<{}, {}, Produto>, res: Response) => {
-      const { nome, preco } = req.body;
+      const { nome, precoVenda, precoCompra, descricao, tags } = req.body;
 
       try {
         
-        this.dbInstance.inserir('produtos', [nome, preco]);
+        this.dbInstance.inserir('produtos', [nome, precoVenda, precoCompra, descricao, tags]);
 
         res.status(201).json({ message: 'Produto criado com sucesso.' });
       } catch (error) {

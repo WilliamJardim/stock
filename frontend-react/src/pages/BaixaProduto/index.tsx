@@ -7,14 +7,19 @@ import IProduto from '../../interfaces/IProduto';
 
 export default function BaixaProduto(){
     
-    const parametrosURL               = useParams<{ idProduto:string }>();
+    const parametrosURL               = useParams<{ idProduto:string, precoVenda:string, precoCompra:string, gasto:string, ganho:string }>();
     const idProduto:string            = parametrosURL.idProduto!;
     const [tipoBaixa,  setTipoBaixa]  = useState('venda');
     const [quantidade, setQuantidade] = useState('');
     const navigate                    = useNavigate();
+    const precoVenda                  = parametrosURL.precoVenda!;
+    const precoCompra                 = parametrosURL.precoCompra!;
 
     const baixarQuantidade = function(){
       const url = `http://localhost:3000/baixas`; // substitua pelo endpoint desejado
+
+      const ganho = tipoBaixa == 'vendeu'  ? precoVenda  : 0;
+      const gasto = tipoBaixa == 'comprou' ? precoCompra : 0;
 
       fetch(url, {
         method: 'POST', // Define o método como POST
@@ -22,9 +27,13 @@ export default function BaixaProduto(){
           'Content-Type': 'application/json' // Define o tipo de conteúdo como JSON
         },
         body: JSON.stringify({
-          idProduto  : idProduto,
-          tipoBaixa  : tipoBaixa,
-          quantidade : quantidade
+          idProduto   : idProduto,
+          tipoBaixa   : tipoBaixa,
+          quantidade  : quantidade,
+          precoVenda  : precoVenda,
+          precoCompra : precoCompra,
+          gasto       : gasto,
+          ganho       : ganho 
         }) // Converte os dados para JSON
       })
       .then(response => {

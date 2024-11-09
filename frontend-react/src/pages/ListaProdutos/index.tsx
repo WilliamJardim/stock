@@ -32,7 +32,7 @@ const ListaProdutos: React.FC = () => {
   }, []);
 
   function criarNovoProduto(){
-    navigate('/novo/S/0/Produto/0/0');
+    navigate('/novo/S/0/Produto/Descricao/Tags/0/0/0');
   }
 
   function apagarProduto(idApagar:number){
@@ -71,11 +71,11 @@ const ListaProdutos: React.FC = () => {
   }
 
   function editarProduto(idEditar:number, objeto:any){
-    navigate(`/novo/N/${idEditar}/${objeto.nome}/${objeto.preco}/${objeto.quantidade}`);
+    navigate(`/novo/N/${idEditar}/${objeto.nome}/${objeto.descricao}/${objeto.tags}/${objeto.precoVenda}/${objeto.precoCompra}/${objeto.quantidade}`);
   }
 
   function baixaProduto( idBaixa:number, objeto:any ){
-    navigate(`/baixa/${idBaixa}`);
+    navigate(`/baixa/${idBaixa}/${objeto.precoVenda}/${objeto.precoCompra}`);
   }
 
   return (
@@ -108,7 +108,7 @@ const ListaProdutos: React.FC = () => {
                       </tr>
                       <tr> 
                         <td> PREÇO </td>
-                        <td className='td-input'> <input type='number' value={ objProduto.preco }/> </td>
+                        <td className='td-input'> <input type='number' value={ objProduto.precoVenda }/> </td>
                       </tr>
 
                     </table>

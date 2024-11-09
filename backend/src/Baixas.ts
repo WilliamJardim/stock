@@ -4,6 +4,10 @@ interface Baixa {
   idProduto: number;
   tipoBaixa: string;
   quantidade: number;
+  precoVenda: number;
+  precoCompra: number;
+  gasto: number;
+  ganho: number;
 }
 
 class BaixasCRUD {
@@ -18,20 +22,28 @@ class BaixasCRUD {
       this.dbInstance.criarTabela('baixas', [
         'idProduto INT NOT NULL',
         'tipoBaixa TEXT NOT NULL',
-        'quantidade INT NOT NULL'
+        'quantidade DECIMAL NOT NULL',
+        'precoVenda DECIMAL',
+        'precoCompra DECIMAL',
+        'gasto DECIMAL',
+        'ganho DECIMAL'
       ]);
 
     }
 
     // Rota para criar um novo Baixa
     app.post('/baixas', (req: Request<{}, {}, Baixa>, res: Response) => {
-      const idProduto = req.body.idProduto!;
-      const quantidade = req.body.quantidade!;
-      const tipoBaixa  = req.body.tipoBaixa!;
+      const idProduto     = req.body.idProduto!;
+      const tipoBaixa     = req.body.tipoBaixa!;
+      const quantidade    = req.body.quantidade!;
+      const precoVenda    = req.body.precoVenda!; 
+      const precoCompra   = req.body.precoCompra!; 
+      const gasto         = req.body.gasto!;
+      const ganho         = req.body.ganho!;
 
       try {
 
-        this.dbInstance.inserir('baixas', [idProduto, tipoBaixa, quantidade]);
+        this.dbInstance.inserir('baixas', [idProduto, tipoBaixa, quantidade, precoVenda, precoCompra, gasto, ganho]);
 
         res.status(201).json({ message: 'Baixa criado com sucesso.' });
       } catch (error) {

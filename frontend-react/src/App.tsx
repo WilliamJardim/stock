@@ -13,8 +13,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<ListaProdutos />} />
-        <Route path="/novo/:isCadastrando/:idProduto/:nome/:preco/:quantidade" element={<CadastrarProduto />} />
-        <Route path="/baixa/:idProduto" element={<BaixaProduto />} />
+        <Route path="/novo/:isCadastrando/:idProduto/:nome/:descricao/:tags/:precoCompra/:precoVenda/:quantidade" element={<CadastrarProduto />} />
+        <Route path="/baixa/:idProduto/:precoVenda/:precoCompra" element={<BaixaProduto />} />
         <Route path="*" element={<NaoEncontrado />} />  {/* Página de erro para rotas não definidas */}
       </Routes>
     </Router>

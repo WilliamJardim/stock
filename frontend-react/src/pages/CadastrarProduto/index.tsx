@@ -7,14 +7,17 @@ import IProduto from '../../interfaces/IProduto';
 
 const CadastrarProduto: React.FC = (props:any) => {
 
-  const parametrosURL = useParams<{isCadastrando:string, idProduto:string, nome: string; preco: string; quantidade: string }>();
+  const parametrosURL = useParams<{isCadastrando:string, idProduto:string, nome: string, descricao: string, tags: string, precoVenda: string, precoCompra: string, quantidade: string }>();
 
-  const isCadastrando:string                 = parametrosURL.isCadastrando        || 'N'; 
-  const idProdutoEditando:string             = parametrosURL.idProduto            || '';
-  const [nome, setNome]                      = useState( parametrosURL.nome       || '' );
-  const [preco, setPreco]                    = useState( parametrosURL.preco      || '' );
+  const isCadastrando:string                 = parametrosURL.isCadastrando           || 'N'; 
+  const idProdutoEditando:string             = parametrosURL.idProduto               || '';
+  const [nome, setNome]                      = useState( parametrosURL.nome          || '' );
+  const [precoVenda,  setPrecoVenda]         = useState( parametrosURL.precoVenda    || '' );
+  const [precoCompra, setPrecoCompra]        = useState( parametrosURL.precoCompra   || '' );
   const [estoque, setEstoque]                = useState<{ estoque:number }>({ estoque: 0 });
   const [estoqueInicial, setEstoqueInicial]  = useState('');
+  const [descricao, setDescricao]            = useState( parametrosURL.descricao ||  '' );
+  const [tags,      setTags]                 = useState( parametrosURL.tags      ||  '' );
 
   const navigate = useNavigate();
 
@@ -23,7 +26,10 @@ const CadastrarProduto: React.FC = (props:any) => {
 
     const dados = {
       nome: nome,
-      preco: preco
+      precoVenda: precoVenda,
+      precoCompra: precoCompra,
+      descricao: descricao,
+      tags: tags
     };
 
     fetch(url, {
@@ -50,8 +56,11 @@ const CadastrarProduto: React.FC = (props:any) => {
     const url = `http://localhost:3000/produtos/${idProdutoEditando}`; // substitua pelo endpoint desejado
 
     const dados = {
-      nome: nome,
-      preco: preco
+      nome        : nome,
+      precoVenda  : precoVenda,
+      precoCompra : precoCompra,
+      descricao   : descricao,
+      tags        : tags
     };
 
     fetch(url, {
@@ -79,8 +88,6 @@ const CadastrarProduto: React.FC = (props:any) => {
     e.preventDefault();
     
     // Lógica para envio do formulário, por exemplo, enviar para uma API
-    console.log('Formulário enviado:', { nome, preco });
-
     if( isCadastrando == 'S' ){
         cadastrar();
 
@@ -95,7 +102,8 @@ const CadastrarProduto: React.FC = (props:any) => {
   const handleCancel = () => {
     // Limpa os campos do formulário
     setNome('');
-    setPreco('');
+    setPrecoCompra('');
+    setPrecoVenda('');
     navigate('/');
   };
 
@@ -143,13 +151,50 @@ const CadastrarProduto: React.FC = (props:any) => {
         </div>
 
         <div>
-          <label htmlFor="preco">Preço:</label>
+          <label htmlFor="descricao">Descrição:</label>
+          <input
+            type="text"
+            id="descricao"
+            name="descricao"
+            value={descricao}
+            onChange={(e) => setDescricao(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="tags">Tags:</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="precovenda">Preço de Venda:</label>
           <input
             type="number"
-            id="preco"
-            name="preco"
-            value={preco}
-            onChange={(e) => setPreco(e.target.value)}
+            id="precovenda"
+            name="precovenda"
+            value={precoVenda}
+            onChange={(e) => setPrecoVenda(e.target.value)}
+            required
+            min="0"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="precocompra">Preço de Compra:</label>
+          <input
+            type="number"
+            id="precocompra"
+            name="preprecocompraco"
+            value={precoCompra}
+            onChange={(e) => setPrecoCompra(e.target.value)}
             required
             min="0"
           />
