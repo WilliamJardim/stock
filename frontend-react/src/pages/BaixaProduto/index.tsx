@@ -14,7 +14,7 @@ export default function BaixaProduto(){
     const navigate                    = useNavigate();
 
     const baixarQuantidade = function(){
-      const url = `http://localhost:3000/baixa/${idProduto}`; // substitua pelo endpoint desejado
+      const url = `http://localhost:3000/baixas`; // substitua pelo endpoint desejado
 
       fetch(url, {
         method: 'POST', // Define o método como POST

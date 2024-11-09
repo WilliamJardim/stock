@@ -47,9 +47,16 @@ class DatabaseManager {
     }
     inserir(nomeTabela, dados) {
         //Obter id
-        const dadosUltimoRegistro = this.consultar(`
+        let dadosUltimoRegistro = this.consultar(`
       select * from sqlite_sequence where name == '${nomeTabela}' 
     `);
+        if (dadosUltimoRegistro.length == 0) {
+            dadosUltimoRegistro = [
+                {
+                    seq: 0
+                }
+            ];
+        }
         const dadosTratados = [];
         for (let i = 0; i < dados.length; i++) {
             dadosTratados.push(`'${dados[i]}'`);

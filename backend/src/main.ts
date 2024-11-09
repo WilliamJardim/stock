@@ -1,3 +1,4 @@
+import BaixasCRUD from "./Baixas";
 import ProdutosCRUD from "./Produtos";
 
 const express = require('express');
@@ -16,6 +17,7 @@ app.use(cors());
 
 //Carrega o CRUD de produtos
 const produtosCrud = new ProdutosCRUD(app, appDB);
+const baixasCrud   = new BaixasCRUD(app, appDB);
 
 // Inicia o servidor
 app.listen(PORT, () => {

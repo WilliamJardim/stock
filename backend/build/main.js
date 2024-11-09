@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const Baixas_1 = __importDefault(require("./Baixas"));
 const Produtos_1 = __importDefault(require("./Produtos"));
 const express = require('express');
 const cors = require('cors'); // Importa o middleware cors
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(cors());
 //Carrega o CRUD de produtos
 const produtosCrud = new Produtos_1.default(app, appDB);
+const baixasCrud = new Baixas_1.default(app, appDB);
 // Inicia o servidor
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);
