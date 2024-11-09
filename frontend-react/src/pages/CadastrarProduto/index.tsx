@@ -14,6 +14,7 @@ const CadastrarProduto: React.FC = (props:any) => {
   const [nome, setNome]             = useState( parametrosURL.nome       || '' );
   const [preco, setPreco]           = useState( parametrosURL.preco      || '' );
   const [quantidade, setQuantidade] = useState( parametrosURL.quantidade || '' );
+  const [estoque, setEstoque]       = useState<{ estoque:number }>({ estoque: 0 });
 
   const navigate = useNavigate();
 
@@ -99,6 +100,34 @@ const CadastrarProduto: React.FC = (props:any) => {
     navigate('/');
   };
 
+  function obterEstoquePromise( idProduto:string ): Promise<{ estoque: number }>{
+    return new Promise((resolve, reject)=>{
+      //Obtem a lista atualizada
+      fetch(`http://localhost:3000/estoque/${idProduto}`)
+        .then(async(resposta) => {
+          // Verifica se a resposta foi bem-sucedida (status 200-299)
+          if (!resposta.ok) {
+            throw new Error('Erro ao buscar os dados');
+          }
+          // Converte a resposta para JSON
+          const jsonDaResposta = await resposta.json();
+          resolve(jsonDaResposta);
+        })
+        .catch((erro) => {
+          reject(erro);
+        });
+    });
+  }
+
+  useEffect(()=>{
+    if( isCadastrando == 'N' ){
+      obterEstoquePromise( idProdutoEditando ).then((jsonResultado)=>{
+          setEstoque(jsonResultado);
+      });
+    }
+
+  }, []);
+
   return (
     <div className='formulario-novo-produto'>
       <form onSubmit={handleSubmit}>
@@ -136,6 +165,17 @@ const CadastrarProduto: React.FC = (props:any) => {
             value={quantidade}
             onChange={(e) => setQuantidade(e.target.value)}
             required
+            min="1"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="estoque">Estoque:</label>
+          <input
+            type="text"
+            id="estoque"
+            name="estoque"
+            value={estoque.estoque}
             min="1"
           />
         </div>

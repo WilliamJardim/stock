@@ -110,10 +110,7 @@ const ListaProdutos: React.FC = () => {
                         <td> PREÇO </td>
                         <td className='td-input'> <input type='number' value={ objProduto.preco }/> </td>
                       </tr>
-                      <tr> 
-                        <td> ESTOQUE </td>
-                        <td className='td-input'> <input type='number' value={objProduto.quantidade}/> </td>
-                      </tr>
+
                     </table>
                   </div>
                 </div>
