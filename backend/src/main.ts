@@ -1,6 +1,6 @@
 import BaixasCRUD from "./Baixas";
 import ProdutosCRUD from "./Produtos";
-import CalculaEstoque from "./tools/CalculaEstoque";
+import CalculaEstoque from "./math/CalculaEstoque";
 
 const express = require('express');
 const cors = require('cors'); // Importa o middleware cors

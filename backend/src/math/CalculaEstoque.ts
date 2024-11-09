@@ -37,7 +37,6 @@ class CalculaEstoque {
 
         res.status(200).json({
             idProduto: id,
-            baixas: resultados,
             estoque: estoque
         });
         
