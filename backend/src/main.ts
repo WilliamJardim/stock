@@ -1,6 +1,6 @@
 import BaixasCRUD from "./Baixas";
 import ProdutosCRUD from "./Produtos";
-import CalculaEstoque from "./math/CalculaEstoque";
+import RotaCalculaEstoque from "./math/CalculaEstoque";
 
 const express = require('express');
 const cors = require('cors'); // Importa o middleware cors
@@ -19,7 +19,7 @@ app.use(cors());
 //Carrega o CRUD de produtos
 const produtosCrud = new ProdutosCRUD(app, appDB);
 const baixasCrud   = new BaixasCRUD(app, appDB);
-const calcEstoque = new CalculaEstoque(app, appDB);
+const calcEstoque = new RotaCalculaEstoque(app, appDB);
 
 // Inicia o servidor
 app.listen(PORT, () => {

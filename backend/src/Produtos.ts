@@ -1,4 +1,5 @@
 import { Application, Request, Response } from 'express';
+import {CalcularEstoque} from './math/CalculaEstoque';
 
 interface Produto {
   nome: string;
@@ -46,7 +47,13 @@ class ProdutosCRUD {
       try {
         const produtos = this.dbInstance.consultar(`SELECT * FROM produtos`);
 
-        res.status(200).json(produtos);
+        //Adiciona alguns dados extras
+        const produtosDadosExtra = produtos.map(( produtoAtual:any )=>{
+            produtoAtual['estoqueProduto'] = CalcularEstoque( dbInstance, produtoAtual.id )?.estoque;
+            return produtoAtual;    
+        });
+
+        res.status(200).json(produtosDadosExtra);
       
       } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar Produtos.' });

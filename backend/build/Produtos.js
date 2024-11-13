@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const CalculaEstoque_1 = require("./math/CalculaEstoque");
 class ProdutosCRUD {
     constructor(app, dbInstance) {
         this.dbInstance = dbInstance;
@@ -28,7 +29,13 @@ class ProdutosCRUD {
         app.get('/produtos', (req, res) => {
             try {
                 const produtos = this.dbInstance.consultar(`SELECT * FROM produtos`);
-                res.status(200).json(produtos);
+                //Adiciona alguns dados extras
+                const produtosDadosExtra = produtos.map((produtoAtual) => {
+                    var _a;
+                    produtoAtual['estoqueProduto'] = (_a = (0, CalculaEstoque_1.CalcularEstoque)(dbInstance, produtoAtual.id)) === null || _a === void 0 ? void 0 : _a.estoque;
+                    return produtoAtual;
+                });
+                res.status(200).json(produtosDadosExtra);
             }
             catch (error) {
                 res.status(500).json({ error: 'Erro ao buscar Produtos.' });

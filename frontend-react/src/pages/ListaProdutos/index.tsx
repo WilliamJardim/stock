@@ -6,6 +6,8 @@ import './style.scss';
 const ListaProdutos: React.FC = () => {
 
   const [produtos, setProdutos] = useState([]);
+  const [idProdutoSelecionado, setIdProdutoSelecionado] = useState(0);
+  const [objProdutoSelecionado, setProdutoSelecionado] = useState({});
   const navigate = useNavigate();
 
   useEffect(function(){
@@ -78,12 +80,28 @@ const ListaProdutos: React.FC = () => {
     navigate(`/baixa/${idBaixa}/${objeto.precoVenda}/${objeto.precoCompra}`);
   }
 
+  function selecionarProduto( idProduto:number ){
+    setIdProdutoSelecionado(idProduto);
+  }
+
   return (
     <Fragment>
       <h1> Lista de Produtos </h1>
 
       <div className='barra-botoes'>
         <button onClick={criarNovoProduto}> Novo Produto </button>
+
+        <button className='botao-deletar' onClick={()=>{
+          apagarProduto(idProdutoSelecionado);
+        }}> Apagar </button>
+
+        <button className='botao-editar' onClick={()=>{
+          editarProduto(idProdutoSelecionado, objProdutoSelecionado);
+        }}> Editar </button>
+
+        <button className='botao-baixa' onClick={()=>{
+          baixaProduto(idProdutoSelecionado,  objProdutoSelecionado);
+        }}> Baixa </button>
       </div>
 
       <div className='grid-produtos'>
@@ -93,7 +111,11 @@ const ListaProdutos: React.FC = () => {
              const imagem = `produtos/${objProduto.nome.toLowerCase()}.webp`;
              const id = objProduto.id;
 
-             return <div className='produto'>
+             return <div className='produto' onClick={()=>{
+                  selecionarProduto(id); 
+                  setProdutoSelecionado(objProduto);
+                  console.log(objProduto)
+              }}>
         
                 <div className="parte-dados">
                   <div className="foto">
@@ -110,25 +132,15 @@ const ListaProdutos: React.FC = () => {
                         <td> PREÇO </td>
                         <td className='td-input'> <input type='number' value={ objProduto.precoVenda }/> </td>
                       </tr>
+                      <tr> 
+                        <td> ESTOQUE </td>
+                        <td className='td-input'> <input type='number' value={ objProduto.estoqueProduto } /> </td>
+                      </tr>
 
                     </table>
                   </div>
                 </div>
-            
-                <div className='botoes-produto'>
-                    <button className='botao-deletar' onClick={()=>{
-                      apagarProduto(id);
-                    }}> Apagar </button>
-
-                    <button className='botao-editar' onClick={()=>{
-                      editarProduto(id, objProduto);
-                    }}> Editar </button>
-
-                    <button className='botao-baixa' onClick={()=>{
-                      baixaProduto(id, objProduto);
-                    }}> Baixa </button>
-                </div>
-
+          
               </div>
           })
         }

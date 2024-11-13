@@ -1,6 +1,35 @@
 import { Application, Request, Response } from 'express';
 
-class CalculaEstoque {
+function CalcularEstoque(dbInstance: any, idProduto:number){
+
+    let resultados = dbInstance.consultar(`SELECT * FROM baixas
+                                           where idProduto = ${ idProduto }`);
+    let estoque = 0;
+
+    //Para cada baixa do produto
+    for( let i = 0 ; i < resultados.length ; i++ )
+    {
+      const baixa      = resultados[i];
+      const tipoBaixa  = baixa.tipoBaixa;
+      const valorBaixa = baixa.quantidade;
+
+      if( tipoBaixa == 'comprou' ){
+         estoque += valorBaixa;
+
+      }else if( tipoBaixa == 'vendeu' ){
+         estoque -= valorBaixa;
+      }
+
+    }
+
+    return {
+      idProduto: idProduto,
+      estoque: estoque
+    };
+}
+
+
+class RotaCalculaEstoque {
   private dbInstance: any;
 
   constructor(app: Application, dbInstance: any) {
@@ -11,36 +40,10 @@ class CalculaEstoque {
       const { id } = req.params;
 
       try {
-    
-        let resultados = this.dbInstance.consultar(`SELECT * FROM baixas
-                                                    where idProduto = ${ id }`);
-
-        let estoque = 0;
-
-        //Para cada baixa do produto
-        for( let i = 0 ; i < resultados.length ; i++ )
-        {
-            const baixa      = resultados[i];
-            const tipoBaixa  = baixa.tipoBaixa;
-            const valorBaixa = baixa.quantidade;
-
-            switch(tipoBaixa){
-                case 'comprou':
-                    estoque += valorBaixa;
-                    break;
-
-                case 'vendeu':
-                    estoque -= valorBaixa;
-                    break;
-            }
-        }
-
-        res.status(200).json({
-            idProduto: id,
-            estoque: estoque
-        });
         
-
+        const dadosEstoque = CalcularEstoque(dbInstance, Number(id) );
+        res.status(200).json(dadosEstoque);
+        
       } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar Estoque.' });
       }
@@ -49,4 +52,5 @@ class CalculaEstoque {
   }
 }
 
-export default CalculaEstoque;
+export default RotaCalculaEstoque;
+export {CalcularEstoque};
