@@ -105,7 +105,7 @@ const CadastrarProduto: React.FC = (props:any) => {
     setNome('');
     setPrecoCompra('');
     setPrecoVenda('');
-    navigate('/');
+    navigate(`/${ idProdutoEditando }`);
   };
 
   useEffect(()=>{

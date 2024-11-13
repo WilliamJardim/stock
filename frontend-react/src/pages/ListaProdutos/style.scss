@@ -50,6 +50,10 @@
         border-radius: 18px;
         padding: 20px;
 
+        &.active {
+            background-color: rgba(150, 150, 150, 0.521); // cor muda e permanece após o clique
+        }
+
         .parte-dados{
             display: flex;
             flex-direction: row;
@@ -113,7 +117,7 @@
     }
 
     .produto:hover{
-        background-color: rgba(71, 71, 71, 0.521);
+        background-color: rgba(112, 112, 112, 0.521);
         border: solid 2px white;
     }
 }

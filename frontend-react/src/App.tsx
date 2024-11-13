@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<ListaProdutos />} />
+        <Route path="/:idProduto?" element={<ListaProdutos />} />
         <Route path="/novo/:isCadastrando/:idProduto/:nome/:descricao/:tags/:precoCompra/:precoVenda/:quantidade" element={<CadastrarProduto />} />
         <Route path="/baixa/:idProduto/:precoVenda/:precoCompra" element={<BaixaProduto />} />
         <Route path="*" element={<NaoEncontrado />} />  {/* Página de erro para rotas não definidas */}

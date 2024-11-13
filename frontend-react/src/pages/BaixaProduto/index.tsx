@@ -62,7 +62,7 @@ export default function BaixaProduto(){
     const handleCancel = () => {
       // Limpa os campos do formulário
       setQuantidade('');
-      navigate('/');
+      navigate(`/${ idProduto }`);
     };
 
     const setOperacao = function(tipo:string){

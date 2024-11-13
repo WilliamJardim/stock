@@ -1,10 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './style.scss';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ListaProdutos: React.FC = () => {
 
+  const parametrosURL           = useParams<{ idProduto:string }>();
   const [produtos, setProdutos] = useState([]);
   const [idProdutoSelecionado, setIdProdutoSelecionado] = useState(0);
   const [objProdutoSelecionado, setProdutoSelecionado] = useState({});
@@ -21,6 +24,19 @@ const ListaProdutos: React.FC = () => {
       // Converte a resposta para JSON
       const jsonDaResposta = await resposta.json();
       setProdutos(jsonDaResposta);
+
+      //Se tem o um ID selecionado que veio na URL
+      if( parametrosURL.idProduto ){
+        setIdProdutoSelecionado( Number(parametrosURL.idProduto) );
+        
+        setProdutoSelecionado( 
+                               jsonDaResposta.filter( function(produtoAtual:any):any{ 
+                                  if(produtoAtual.id == parametrosURL.idProduto){
+                                    return produtoAtual;
+                                  }
+                               })
+                              )
+      }
     })
     .then((dados) => {
       // Aqui você pode trabalhar com os dados recebidos
@@ -38,6 +54,11 @@ const ListaProdutos: React.FC = () => {
   }
 
   function apagarProduto(idApagar:number){
+    if( !idApagar ){
+      toast.error("Voce precisa selecionar um produto!")
+      return;
+    }
+
     fetch(`http://localhost:3000/produtos/${idApagar}`, { // Inclui o ID do produto na URL
       method: 'DELETE' // Define o método como DELETE
     })
@@ -73,10 +94,18 @@ const ListaProdutos: React.FC = () => {
   }
 
   function editarProduto(idEditar:number, objeto:any){
+    if( !idEditar ){
+      toast.error("Voce precisa selecionar um produto!")
+      return;
+    }
     navigate(`/novo/N/${idEditar}/${objeto.nome}/${objeto.descricao}/${objeto.tags}/${objeto.precoVenda}/${objeto.precoCompra}/${objeto.quantidade}`);
   }
 
   function baixaProduto( idBaixa:number, objeto:any ){
+    if( !idBaixa ){
+      toast.error("Voce precisa selecionar um produto!")
+      return;
+    }
     navigate(`/baixa/${idBaixa}/${objeto.precoVenda}/${objeto.precoCompra}`);
   }
 
@@ -87,6 +116,13 @@ const ListaProdutos: React.FC = () => {
   return (
     <Fragment>
       <h1> Lista de Produtos </h1>
+      <Toaster 
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=""
+        containerStyle={{}}
+      />
 
       <div className='barra-botoes'>
         <button onClick={criarNovoProduto}> Novo Produto </button>
@@ -111,7 +147,7 @@ const ListaProdutos: React.FC = () => {
              const imagem = `produtos/${objProduto.nome.toLowerCase()}.webp`;
              const id = objProduto.id;
 
-             return <div className='produto' onClick={()=>{
+             return <div className={`produto ${ id == idProdutoSelecionado ? 'active' : 'naoactive' }`} onClick={()=>{
                   selecionarProduto(id); 
                   setProdutoSelecionado(objProduto);
                   console.log(objProduto)
